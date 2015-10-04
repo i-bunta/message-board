@@ -9,14 +9,15 @@
     <% @messages.each do |message| %>
       <span class="label label-info"><%= message.name %></span>
         <%= message.body %>
+                (
+<%= link_to "edit" , edit_message_path(message) %>
+)
       <br>
     <% end %>
   </div>
 </div>
 
-<% #部分テンプレートを読み込んでいる %>
 
-<%= render 'form' %>
 
 <div class="container">
   <%= form_for(Message.new, html: { class: 'new_message form-horizontal' }) do |f| %>
