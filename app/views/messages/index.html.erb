@@ -1,18 +1,4 @@
-<%= form_for(Message.new) do |f| %>
 
-  名前:
-  
-<%= f.text_field :name %>
-
-
-  内容:
-  
-<%= f.text_field :body %>
-
-  
-<%= f.submit %>
-
-<% end %>
 
 <div class="panel panel-default">
   <div class="panel-heading">
@@ -22,20 +8,51 @@
   <div class="panel-body">
     <% @messages.each do |message| %>
       <span class="label label-info"><%= message.name %></span>
-      <%= message.body %>
+        <%= message.body %>
       <br>
     <% end %>
   </div>
 </div>
+<div class="container">
+  <%= form_for(Message.new, html: { class: 'new_message form-horizontal' }) do |f| %>
+    <% if @message.errors.present? %>
 
-<%= form_for(Message.new) do |f| %>
-  名前:
-  <%= f.text_field :name %>
+    <div class="alert alert-danger">
+      
+<%= alert %>
 
-  内容:
-  <%= f.text_field :body %>
-  <%= f.submit class: "btn btn-sm btn-primary" %>
+      <ul>
+        
+<% @message.errors.full_messages.each do |full_message| %>
+
+          <li>
+            
+<%= full_message %>
+
+          </li>
+        
+<% end %>
+ 
+      </ul>
+    </div>
+  
 <% end %>
 
-
-<%= form_for(Message.new) do |f| %>
+    <div class="form-group">
+      <div class="col-md-4">
+        
+        <label>名前</label>
+        <%= f.text_field :name ,class:"form-control" %>
+      </div>
+    </div>
+        
+    <div class="form-group">
+      <div class="col-md-4">
+        <label>内容</label>
+        <%= f.text_area :body , :size =>"30x10" ,class:"form-control" %>
+      </div>
+    </div>
+    
+    <%= f.submit class: "btn btn-sm btn-primary" %>
+  <% end %>
+</div>
